@@ -41,6 +41,7 @@ public class Task2Test {
             }
         } catch (Exception e) {
             System.out.println(e.getMessage());
+            throw e;
         }
     }
 }

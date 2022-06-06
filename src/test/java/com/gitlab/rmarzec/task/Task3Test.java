@@ -77,6 +77,7 @@ public class Task3Test {
 
         } catch (Throwable e) {
             System.out.println(e.getMessage());
+            throw e;
         }
     }
 }

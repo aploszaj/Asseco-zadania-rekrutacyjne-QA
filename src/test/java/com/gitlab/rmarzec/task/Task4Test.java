@@ -1,6 +1,5 @@
 package com.gitlab.rmarzec.task;
 
-import com.gitlab.rmarzec.consts.Task2Consts;
 import com.gitlab.rmarzec.consts.Task4Consts;
 import com.gitlab.rmarzec.framework.utils.DriverFactory;
 import com.gitlab.rmarzec.model.Task4Page;
@@ -42,9 +41,13 @@ public class Task4Test {
                     ytTile.setTitle(title.getAttribute("title"));
                     WebElement channel = webDriver.findElement(By.cssSelector(cssVideo + Task4Consts.YT_CHANNEL));
                     ytTile.setChannel(channel.getAttribute("title"));
-                    String liveCss = Task4Consts.YT_LIVE.replace("@live", "live");
-                    WebElement liveElement = webDriver.findElement(By.cssSelector(liveCss));
-                    if (liveElement.isDisplayed()) {
+                    String liveCss = cssVideo + Task4Consts.YT_LIVE.replace("@live", "live");
+                    WebElement liveElement = null;
+                    try {
+                        liveElement = webDriver.findElement(By.cssSelector(liveCss));
+                    } catch (Exception e) {
+                    }
+                    if (liveElement != null) {
                         ytTile.setLength("live");
                     } else {
                         WebElement time = webDriver.findElement(By.cssSelector(cssVideo + Task4Consts.YT_TIME));
@@ -60,6 +63,7 @@ public class Task4Test {
             }
         } catch (Exception e) {
             System.out.println(e.getMessage());
+            throw e;
         }
     }
 }
